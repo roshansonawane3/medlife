@@ -1,0 +1,37 @@
+<div class="container">
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-3" href="#">
+        <img src="https://www.medibuddy.in/assets/images/medibuddy-icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+       <span class="ms-1"> <span style="color: rgb(63, 120, 243);">Med</span><span
+        style="color: rgb(230, 46, 45);">Life</span> </span>
+      </a>
+      <div class="text-end">
+        <a  class="text-decoration-none me-3 fw-semibold">About us</a>
+        <a  class="text-decoration-none ms-2 fw-semibold cursor" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="!isUserLoggedIn"> Login</a>
+        <span  class="ms-2 fw-semibold" *ngIf="isUserLoggedIn">{{userDetails?.userName}}</span>
+        <i class="bi bi-cart ms-3 fs-5 fw-semibold cursor" routerLink="cart"></i><span class="rounded-circle px-1 bg-danger text-white cart">{{cartCounter}}</span>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{actionName === 'SignUp'? 'Sign Up' :'Sign In'}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeBtn></button>
+      </div>
+      <div class="modal-body">
+        <app-signin *ngIf="actionName === 'SignIn'" (emitAction)="getAction($event)"></app-signin>
+        <app-signup *ngIf="actionName === 'SignUp'"></app-signup>
+        
+      </div>
+      <div class="d-grid gap-2 m-3">
+        <button class="btn btn-primary" type="button" *ngIf="actionName =='SignUp'" (click)="changeAction('SignIn')">Sign In</button>
+        <button class="btn btn-primary" type="button" *ngIf="actionName === 'SignIn'" (click)="changeAction('SignUp')">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>

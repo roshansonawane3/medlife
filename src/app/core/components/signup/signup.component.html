@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="alert alert-danger" role="alert" *ngIf="signForm.valid && !isOtpVerified">
+    OTP Verification is Mandatory
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="isIncorrectOtp">
+    OTP is Invalid
+  </div>
+  <form [formGroup]="signForm" (ngSubmit)="signUp()">
+    <div class="mb-3">
+      <label for="uName" class="form-label">User Name</label>
+      <input type="text" class="form-control" id="uName" formControlName="userName">
+  
+    </div>
+  
+    <label for="mobileNo" class="form-label">Mobile Number</label>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="mobileNo" formControlName="mobileNumber">
+      <span *ngIf="!isOtpVerified" class="input-group-text cursor" (click)="getOtp()">Get OTP</span>
+      <span *ngIf="isOtpVerified" class="input-group-text"><i class="bi bi-check-circle text-primary fs-5"></i></span>
+    </div>
+  
+    <div *ngIf="isGetOtp">
+      <label for="mobileNo" class="form-label">OTP</label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="mobileNo" #otp>
+        <span class="input-group-text cursor" (click)="verifyOtp(otp.value)">Verify OTP</span>
+      </div>
+      <div>OTP is Valid For {{otpCounter}}s</div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="InputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="InputPassword1" formControlName="password">
+    </div>
+  
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+  
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit" [disabled]="signForm.invalid">Submit</button>
+  
+    </div>
+  </form>
+</div>
